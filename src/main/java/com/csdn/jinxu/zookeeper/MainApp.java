@@ -14,7 +14,7 @@ import java.util.List;
  * @see
  * @since 16-7-19 上午11:19
  */
-public class ZookeeperInstanceMainApp {
+public class MainApp {
 
     public static void main(String[] args) throws IOException, InterruptedException, KeeperException {
         ZookeeperInstance zookeeperInstance = new ZookeeperInstance();
@@ -24,29 +24,28 @@ public class ZookeeperInstanceMainApp {
         zookeeperInstance.connect(host);
         System.out.println("1、--------connect zookeeper ok-----------\n");
 
-        boolean isExists=zookeeperInstance.exists("/test");
-        if(isExists){
-            zookeeperInstance.deleteNode("/test",-1);
+        boolean isExists = zookeeperInstance.exists("/test");
+        if (isExists) {
+            zookeeperInstance.deleteNode("/test", -1);
             System.out.println("2、--------delete znode ok-----------\n");
         }
         System.out.println("3、--------exists znode ok-----------\n");
 
 
-        byte [] data = {1, 2, 3, 4, 5};
+        byte[] data = {1, 2, 3, 4, 5};
         String result = zookeeperInstance.createNode("/test", data);
         System.out.println(result);
         System.out.println("4、--------create znode ok-----------\n");
 
 
         List<String> children = zookeeperInstance.getChildren("/");
-        for (String child : children)
-        {
+        for (String child : children) {
             System.out.println(child);
         }
         System.out.println("5、--------get children znode ok-----------\n");
 
 
-        byte [] nodeData = zookeeperInstance.getData("/test");
+        byte[] nodeData = zookeeperInstance.getData("/test");
         System.out.println(Arrays.toString(nodeData));
         System.out.println("6、--------get znode data ok-----------\n");
 
